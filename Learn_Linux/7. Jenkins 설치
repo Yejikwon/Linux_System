@@ -1,0 +1,48 @@
+# [CentOS7]   Jenkins 설치
+
+2018-04-11<br>
+
+<br>
+
+##  
+
+### 1.  Jenkins 설치 <br>
+
+```
+- jenkins repository를 설정파일을 생성
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+- 그 다음 아래 명령어를 입력하여 key를 import 합니다.
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+- Jenkins 설치 준비가 완료되었습니다. 설치합시다.
+yum install jenkins
+
+- 포트 변경
+vi /etc/sysconfig/jenkin
+# JENKINS_PORT="8080"
+JENKINS_PORT="27002"
+
+- 지정한 포트 방화벽 open
+firewall-cmd --permanent --add-port=27002/tcp 
+firewall-cmd --reload
+
+- 서비스 부팅 가능하게 하고, 시작
+systemctl enable jenkins
+    jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+    Executing /sbin/chkconfig jenkins on
+
+systemctl start jenkins
+
+- 서버 접속
+http://192.168.56.100:27002
+
+vi /var/lib/jenkins/secrets/initialAdminPassword
+키 붙여넣기
+
+id: yeeji.kwon
+pw: 자주 쓰던
+
+```
+
+<br>
